@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortar &amp; Pestle SAT</title>
+<meta name="description" content="SAT Reading &amp; Writing drilling, tracked locally.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+
+<!-- ============ GATE ============ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-mark">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M10 24c0 9 6.5 15 14 15s14-6 14-15" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M13 24h22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="27" y="5" width="6" height="21" rx="3" transform="rotate(26 30 15)" fill="currentColor"/></svg>
+    </div>
+    <h1>Mortar &amp; Pestle SAT</h1>
+    <p class="sub">Grind, then measure.</p>
+
+    <div class="field">
+      <label for="f-name">Name</label>
+      <input id="f-name" type="text" placeholder="DC" autocomplete="given-name">
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label for="f-score">Current R&amp;W</label>
+        <input id="f-score" type="number" placeholder="680" min="200" max="800" step="10">
+      </div>
+      <div class="field">
+        <label for="f-date">Exam date</label>
+        <input id="f-date" type="date">
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-token">Access token</label>
+      <input id="f-token" class="token" type="text" placeholder="MP-XXXX-XXXX" maxlength="14" autocomplete="off">
+    </div>
+    <div class="err" id="gateErr"></div>
+
+    <button class="btn full" id="gateBtn">Unlock this browser</button>
+    <p class="gate-foot">One token, one browser, once.<br>Clear your cache and it's gone.</p>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" class="hidden">
+
+  <div class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M10 24c0 9 6.5 15 14 15s14-6 14-15" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M13 24h22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="27" y="5" width="6" height="21" rx="3" transform="rotate(26 30 15)" fill="currentColor"/></svg>
+      <div class="wordmark">Mortar &amp; Pestle<small>SAT Reading &amp; Writing</small></div>
+    </div>
+    <div class="tabs" id="tabs">
+      <button class="active" data-page="dashboard">Dashboard</button>
+      <button data-page="analytics">Analytics</button>
+      <button data-page="history">History</button>
+      <button data-page="sets">Sets</button>
+      <button data-page="toolbox">Toolbox</button>
+    </div>
+    <div class="topbar-right">
+      <div class="dday-chip" id="ddayChip">—</div>
+      <div class="who" id="whoChip" title="Profile settings"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <section id="page-dashboard" class="page active">
+    <div class="inner">
+      <div class="creed">
+        <div class="ring" id="ddayRing"></div>
+        <div>
+          <p class="hook" id="welcomeLine">Welcome.</p>
+          <p class="line" id="creedLine"></p>
+          <div class="bank-bar"><i id="bankBar" style="width:0%"></i></div>
+          <div class="streak-row" id="creedPills"></div>
+        </div>
+      </div>
+
+      <div class="sec-head">
+        <div>
+          <h2 class="sec">Begin practice</h2>
+          <p class="sec-sub">Pick a mode. The interface is the real thing — same layout, same keys.</p>
+        </div>
+      </div>
+
+      <div class="mode-grid">
+        <button class="mode-card accent" data-start="timed">
+          <div class="mc-top"><span class="mc-name">Timed</span>
+            <svg class="mc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div class="mc-desc">Clock runs, no feedback until the end. Pacing gets logged per question type.</div>
+          <div class="mc-tag">Test conditions · 1:11 / question</div>
+        </button>
+        <button class="mode-card" data-start="untimed">
+          <div class="mc-top"><span class="mc-name">Untimed</span>
+            <svg class="mc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <div class="mc-desc">Immediate feedback after every submit. Explanation opens inline, flag the reason on the spot.</div>
+          <div class="mc-tag">Learning pass · no clock shown</div>
+        </button>
+        <button class="mode-card" data-start="openbook">
+          <div class="mc-top"><span class="mc-name">Open book</span>
+            <svg class="mc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-7a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h7z"/></svg>
+          </div>
+          <div class="mc-desc">Untimed, plus your own notes recalled beside the question — general and by question type.</div>
+          <div class="mc-tag">Toolbox on tap · builds the note habit</div>
+        </button>
+      </div>
+
+      <div class="launch-row">
+        <button class="launch" id="btnCategory">
+          <span><span class="l-name">Category practice</span><span class="l-meta">Pick from the 13 question types</span></span>
+          <span class="l-count">13</span>
+        </button>
+        <button class="launch" id="btnFlagged">
+          <span><span class="l-name">Flagged questions</span><span class="l-meta">Everything you marked, oldest first</span></span>
+          <span class="l-count" id="cntFlagged">0</span>
+        </button>
+        <button class="launch" id="btnTargeted">
+          <span><span class="l-name">Targeted practice</span><span class="l-meta">Redemption &amp; similar questions</span></span>
+          <span class="l-count" id="cntRedemption">0</span>
+        </button>
+      </div>
+
+      <div class="sec-head">
+        <div>
+          <h2 class="sec">Where you stand</h2>
+          <p class="sec-sub">The short version. Everything else lives in Analytics.</p>
+        </div>
+        <button class="link-btn" data-goto="analytics">View analytics →</button>
+      </div>
+
+      <div class="brief-grid">
+        <div class="card">
+          <div class="card-label">Accuracy · overall</div>
+          <div id="briefWindows"></div>
+        </div>
+        <div class="card spark">
+          <div class="card-label">L10 rolling · by session</div>
+          <div id="briefSpark"></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Weakest three · L50</div>
+          <div id="briefWeak"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS -->
+  <section id="page-analytics" class="page">
+    <div class="inner">
+      <div class="eyebrow">Analytics</div>
+      <h1 class="page-title">The numbers, unsoftened.</h1>
+      <p class="page-dek">L10, L20 and L50 are the last 10, 20 and 50 questions; OVR is all-time. Read them together — L10 above OVR means you're improving, below means you're leaking.</p>
+      <div class="stat-strip" id="anStats"></div>
+      <h2 class="sec">Accuracy over time</h2>
+      <p class="sec-sub">Rolling L10, one point per session.</p>
+      <div class="card" style="margin-bottom:30px;" id="anChart"></div>
+      <h2 class="sec">Per question type</h2>
+      <p class="sec-sub">Same four windows, per category, grouped by domain.</p>
+      <div class="tbl-wrap" id="anTypes"></div>
+      <div class="split">
+        <div class="card"><div class="card-label">Timed mode · seconds per question, by type</div><div id="anPace"></div></div>
+        <div class="card"><div class="card-label">Auto-flagged · took too long</div><div id="anSlow"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="page-history" class="page">
+    <div class="inner">
+      <div class="eyebrow">History</div>
+      <h1 class="page-title">Every set you've attempted.</h1>
+      <p class="page-dek">Open a session to see each question you solved: time taken, whether it was right, the error type you tagged, and whether you flagged it.</p>
+      <div id="histList"></div>
+    </div>
+  </section>
+
+  <!-- SETS -->
+  <section id="page-sets" class="page">
+    <div class="inner">
+      <div class="eyebrow">Sets</div>
+      <h1 class="page-title">Your collections.</h1>
+      <p class="page-dek">Save a question mid-session with the bookmark, drop it into any collection, then come back and grind the collection on its own.</p>
+      <div class="sec-head">
+        <div><h2 class="sec">Collections</h2><p class="sec-sub" id="setsSub"></p></div>
+        <button class="btn small" id="btnNewSet">+ New collection</button>
+      </div>
+      <div class="set-grid" id="setGrid"></div>
+      <div style="margin-top:26px;" id="setDetail"></div>
+    </div>
+  </section>
+
+  <!-- TOOLBOX -->
+  <section id="page-toolbox" class="page">
+    <div class="inner">
+      <div class="eyebrow">Toolbox</div>
+      <h1 class="page-title">Everything you wrote down.</h1>
+      <p class="page-dek">Open book mode reads from here. The more you put in, the more it hands back mid-question.</p>
+
+      <div class="tool-tabs" id="toolTabs">
+        <button class="active" data-tool="notes">Personal notes</button>
+        <button data-tool="vocab">Vocabs</button>
+        <button data-tool="trans">Transition bank</button>
+        <button data-tool="errors">Error logs</button>
+        <button data-tool="flags">Flagged logs</button>
+      </div>
+
+      <div id="tool-notes" class="tool-panel active">
+        <div class="card">
+          <div class="card-label">Write a note · tagged general or by question type</div>
+          <div class="compose">
+            <select id="noteTag"></select>
+            <input class="grow" id="noteText" type="text" placeholder="e.g. If both clauses stand alone, the blank is never a comma.">
+            <button class="btn small" id="noteAdd">Save note</button>
+          </div>
+          <div id="noteList"></div>
+        </div>
+      </div>
+
+      <div id="tool-vocab" class="tool-panel">
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-label">Add a word</div>
+          <div class="compose">
+            <input id="vWord" type="text" placeholder="Word" style="width:150px">
+            <input id="vPos" type="text" placeholder="n. / v. / adj." style="width:110px">
+            <input class="grow" id="vDef1" type="text" placeholder="Common definition">
+          </div>
+          <div class="compose">
+            <input class="grow" id="vDef2" type="text" placeholder="Secondary / tested sense">
+          </div>
+          <div class="compose">
+            <textarea id="vNote" placeholder="Your notes — mnemonic, sentence you met it in, trap to avoid"></textarea>
+          </div>
+          <button class="btn small" id="vAdd">Add to vocab</button>
+        </div>
+        <div class="vocab-grid" id="vocabGrid"></div>
+      </div>
+
+      <div id="tool-trans" class="tool-panel">
+        <div class="empty">
+          <b>Transition bank</b>
+          Reserved. Drop your own list in here later — grouped by relationship (contrast, cause, sequence, concession, illustration, emphasis) with the traps that share a group.
+        </div>
+      </div>
+
+      <div id="tool-errors" class="tool-panel">
+        <p class="sec-sub">Every question you have ever missed. Comprehensive, nothing rolls off.</p>
+        <div class="tbl-wrap" id="errLog"></div>
+      </div>
+
+      <div id="tool-flags" class="tool-panel">
+        <p class="sec-sub">Flagged during a session — right or wrong.</p>
+        <div class="tbl-wrap" id="flagLog"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    Mortar &amp; Pestle SAT · <span id="bankStatus">—</span> · <button id="btnExport">Export data</button> · <button id="btnWipe">Reset</button>
+  </footer>
+</div>
+
+<!-- ============ PRACTICE ============ -->
+<div id="practice" class="hidden">
+  <div class="q-top">
+    <div class="left">
+      <button class="icon-btn" id="pExit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Exit
+      </button>
+      <span class="mode-badge" id="modeBadge">Timed</span>
+      <span id="qCounter">—</span>
+      <span id="qLabel" style="color:var(--text-on-ink-soft)"></span>
+    </div>
+    <div class="right">
+      <button class="icon-btn" id="flagBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg>Flag
+      </button>
+      <button class="icon-btn" id="saveBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M12 7v6M9 10h6"/></svg>Save
+      </button>
+      <button class="icon-btn" id="obBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h7a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-7a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h7z"/></svg>Notes
+      </button>
+      <span class="timer" id="timer">0:00</span>
+    </div>
+  </div>
+  <div class="prog"><i id="progFill"></i></div>
+
+  <div class="q-body" id="qBody">
+    <div class="pane left">
+      <div class="p-eyebrow" id="qMeta"></div>
+      <div class="p-text" id="qPassage"></div>
+      <div class="stem" id="qStem"></div>
+    </div>
+    <div class="pane">
+      <div class="choices" id="qChoices"></div>
+      <div class="kbd-hint">A–D or 1–4 to select · Alt + letter to strike out · Enter to submit / next · F flag · S save</div>
+    </div>
+    <div id="openbook" class="hidden">
+      <h3>Your notes</h3>
+      <p class="ob-sub" id="obSub"></p>
+      <div id="obList"></div>
+    </div>
+  </div>
+
+  <div class="drawer hidden" id="drawer">
+    <div class="drawer-head">
+      <span class="result-tag" id="resultTag">Incorrect</span>
+      <span class="mono" style="font-size:11px;color:var(--text-on-paper-soft)" id="resultMeta"></span>
+    </div>
+    <div class="ex" id="explain"></div>
+    <div class="flag-reasons" id="flagReasons">
+      <span class="fr-label">Flag reason</span>
+      <button class="fr" data-fr="Concept gap">Concept gap</button>
+      <button class="fr" data-fr="Misread question">Misread question</button>
+      <button class="fr" data-fr="Careless">Careless</button>
+      <button class="fr" data-fr="Time pressure">Time pressure</button>
+      <button class="fr" data-fr="Vocabulary">Vocabulary</button>
+    </div>
+  </div>
+
+  <div class="q-foot">
+    <span class="fl" id="sessMeta"></span>
+    <div style="display:flex;gap:10px">
+      <button class="btn ghost small" id="pPrev">Back</button>
+      <button class="btn small" id="pMain">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SUMMARY ============ -->
+<div id="summary" class="hidden">
+  <div class="sum-wrap" id="sumWrap"></div>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div id="modal" class="sheet-back hidden"><div class="sheet" id="modalBody"></div></div>
+
+<script src="./assets/app.js"></script>
+</body>
+</html>
